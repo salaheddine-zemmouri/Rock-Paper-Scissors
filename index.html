@@ -2,8 +2,29 @@
 <html>
     <head>
         <title>Rock Paper Scissors</title>
+        <link rel="stylesheet" href="style.css">
     </head>
     <body>
+        <header>
+            <div class="player">
+                Player
+                <div id="playerScore">0</div>
+            </div>
+            <div class="computer">
+                Computer
+                <div id="computerScore">0</div>
+            </div>
+        </header>
+        <main>
+            <h2>Choose an option</h2>
+            <img src="assets/rock.png" alt="rock" id="playerTool">
+            <img src="assets/rock.png" alt="rock" id="computerTool">
+            <div class="choices">
+                <button class="btn" id="rock">Rock</button>
+                <button class="btn" id="paper">Paper</button>
+                <button class="btn" id="scissors">Scissors</button>
+            </div>
+        </main>
         <script src="script.js"></script>
     </body>
 </html>

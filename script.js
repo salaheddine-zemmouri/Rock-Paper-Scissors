@@ -1,51 +1,54 @@
+
 function computerPlay(){
-    let choice = ["Rock","Paper","Scissors"];
+    let choice = ["rock","paper","scissors"];
     return choice[Math.floor(Math.random()*3)];
 }
 
-function roundStates(playerSelection, computerSelection){
+
+//  0 : Tie 
+//  1 : Win 
+// -1 : Lose 
+
+
+function playRound(playerSelection, computerSelection){
 
     let tool1 = playerSelection.toUpperCase();
     let tool2 = computerSelection.toUpperCase();
 
-    if(tool1 == tool2) return [0,0];
+    if(tool1 == tool2) return 0;
 
     else if(
         (tool1 == "ROCK" && tool2 == "SCISSORS")|| 
         (tool1 == "SCISSORS" && tool2 == "PAPER" )||
         (tool1 == "PAPER" && tool2 == "ROCK")
-    ) return [1,0];
+    ) return 1
     else
-        return [0,1];
+        return -1;
 }
 
-function playRound(playerSelection, computerSelection) {
-    [tool1,tool2] = roundStates(playerSelection,computerSelection);
-    if(tool1 == tool2) return "Tie Game";
 
-    let state = tool1?"Win":"Lose";
-    if(tool1){
-        winner = playerSelection;
-        loser = computerSelection;
-    }
-    else {
-        winner = computerSelection;
-        loser = playerSelection;
-    }
-    return `You ${state}! ${winner} beats ${loser}`;
-}
 
-function game(){
-    let countPlayer = 0 , countComputer = 0;
-    for(let i = 1 ; i <= 1 ; i++){
-        const playerSelection = prompt("Rock , Paper or Scissors ?");
-        const computerSelection = computerPlay();
-        let result = playRound(playerSelection, computerSelection);
-        let state = result[4];
-        if (state == 'W') countPlayer++;
-        else if (state == 'L') countComputer++;
-        console.log(`Human ${countPlayer} - ${countComputer} AI : ${result}`);
-    }
-}
+let player = 0 , computer= 0;
 
-game();
+
+const playerImg = document.querySelector('#playerTool');
+const computerImg = document.querySelector('#computerTool');
+
+const playerScore = document.querySelector('#playerScore');
+const computerScore = document.querySelector('#computerScore');
+
+
+const btns = Array.from(document.querySelectorAll('button'));
+btns.forEach(btn => {
+    btn.addEventListener('click',() => {
+        let playerChoice = btn.id;
+        let computerChoice = computerPlay();
+        playerImg.setAttribute('src',`assets/${playerChoice}.png`);
+        computerImg.setAttribute('src',`assets/${computerChoice}.png`);
+        let result = playRound(playerChoice,computerChoice);
+        if (result==1) player++;
+        if (result==-1) computer++;
+        playerScore.textContent = `${player}`;
+        computerScore.textContent = `${computer}`;
+    });
+});
